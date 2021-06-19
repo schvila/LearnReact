@@ -1,0 +1,4 @@
+<ExpenseItem>
+pozor na velikost pisma, react to rozlisuje. mala pismena pro standard html, components velke na zactku a pakpodle potreby.
+Only ONE Root html element for component, enclose all in div.
+css instead of class className is used.
