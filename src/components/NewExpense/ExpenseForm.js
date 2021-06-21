@@ -3,44 +3,61 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
-  // const [enteredTitle, setEnteredTitle] = useState("");
-  // const [enteredAmount, setEnteredAmount] = useState("");
-  // const [enteredDate, setEnteredDate] = useState("");
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    enteredDate: "",
-  });
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: "",
+  //   enteredAmount: "",
+  //   enteredDate: "",
+  //}
 
   const titleChangeHadnler = (event) => {
     //console.log(event.target.value);
     // pozor updates jsou scheduled, takto je garantovan posledni stav
-    setUserInput((prevState) => {
-      return { ...prevState, enteredTitle: event.target.value };
-    });
+    setEnteredTitle(event.target.value);
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredTitle: event.target.value };
+    // });
   };
   const amountChangeHadnler = (event) => {
     //console.log(event.target.value);
-    setUserInput((prevState) => {
-      return { ...prevState, enteredAmount: event.target.value };
-    });
+    setEnteredAmount(event.target.value);
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredAmount: event.target.value };
+    // });
   };
   const dateChangeHadnler = (event) => {
     //console.log(event.target.value);
-    setUserInput((prevState) => {
-      return { ...prevState, enteredDate: event.target.value };
-    });
+    setEnteredDate(event.target.value);
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredDate: event.target.value };
+    // });
   };
   const submitHandler = (event) => {
     //beaware form submit by default reloads page
     event.preventDefault();
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+    console.log(expenseData);
+
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHadnler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHadnler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -48,6 +65,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount}
             onChange={amountChangeHadnler}
           />
         </div>
@@ -57,6 +75,7 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+            value={enteredDate}
             onChange={dateChangeHadnler}
           />
         </div>
